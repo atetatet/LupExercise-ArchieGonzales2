@@ -34,6 +34,8 @@ namespace LupExercise_ArchieGonzales
             options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddCors(options => options.AddDefaultPolicy(builder => builder.WithOrigins("http://10.0.254.10:3000").AllowAnyHeader().AllowAnyHeader()));
+
             services.AddIdentity<Users, IdentityRole>()
              .AddEntityFrameworkStores<ApplicationDbContext>()
              .AddDefaultTokenProviders();
@@ -58,8 +60,8 @@ namespace LupExercise_ArchieGonzales
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
